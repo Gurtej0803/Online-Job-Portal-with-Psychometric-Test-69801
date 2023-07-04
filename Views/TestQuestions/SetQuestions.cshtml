@@ -1,0 +1,52 @@
+﻿@using JobPortal.Models.Domain
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model JobPortal.Models.SetQuestionViewModel
+@{
+}
+<h1> Add New Question</h1>
+<form method="post" enctype="multipart/form-data" action="SetQuestions" class="mt-5">
+    <div class="mb-3">
+        <label asp-for="CategoryId" class="form-label">Category Name</label>
+        <select asp-for="CategoryId" class="form-control">
+            @foreach (TestQuestionCategory item in ViewBag.TestQuestionCategory)
+            {
+                <option value="@item.CategoryId">@item.CategoryName</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label asp-for="QuestionDescription" class="control-label">Question Description</label>
+        <textarea id="." name="QuestionDescription" rows="4" cols="173" class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Question Name</label>
+        <input type="text" class="form-control" asp-for="QuestionName">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Option A</label>
+        <input type="text" class="form-control" asp-for="OptionA">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Option B</label>
+        <input type="text" class="form-control" asp-for="OptionB">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Option C</label>
+        <input type="text" class="form-control" asp-for="OptionC">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Option D</label>
+        <input type="text" class="form-control" asp-for="OptionD">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Choose Correct Option</label>
+        <select asp-for="CorrectOption" class="form-select" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+            <option value="A">Option A</option>
+            <option value="B">Option B</option>
+            <option value="C">Option C</option>
+            <option value="D">Option D</option>
+        </select>
+    </div> 
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

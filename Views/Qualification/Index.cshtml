@@ -1,0 +1,39 @@
+@model List<JobPortal.Models.Domain.JobSeekerQualification>
+@{
+}
+
+<h1>Qualifications</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Institute Name</th>
+            <th>Level of Education</th>
+            <th>Field of Study</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>CGPA</th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Job Seeker"))
+                {
+                    <a href="/Qualification/SetQualification" class="btn btn-primary btn-md justify-content-end">Add New Qualification</a>
+                }
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var qualifications in Model)
+        {
+            <tr>
+                <td>@qualifications.InstitutionName</td>
+                <td>@qualifications.LevelOfEducation</td>
+                <td>@qualifications.Major</td>
+                <td>@qualifications.StartDate</td>
+                <td>@qualifications.EndDate</td>
+                <td>@qualifications.GPA</td>
+                <td><a href="Qualification/ViewQualification/@qualifications.Id" class="btn btn-primary">View</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,140 @@
+@model ViewApplicationProfileViewModel
+
+@{
+    ViewBag.Title = "View Job Application Profile";
+}
+
+<div class="mb-4">
+    <a class="btn btn-primary" asp-action="ViewApplications" asp-route-id="@Model.JobId">Back</a>
+</div>
+
+<h2 class="text-center">Profile of @Model.User.FirstName @Model.User.LastName</h2>
+
+<div class="mt-5 d-flex flex-column">
+    @{
+        var details = new Dictionary<string, string>()
+        {
+            ["Name"] = $"{Model.User.FirstName} {Model.User.LastName}",
+            ["Email"] = Model.User.Email,
+            ["Phone Number"] = Model.User.PhoneNumber,
+        };
+    }
+
+    <div class="my-2 text-center">
+        @if (Model.User.ProfilePicture.Length > 0)
+        {
+            <img id="profilePicture" alt="profile" src="data:image/*;base64,@(Convert.ToBase64String(Model.User.ProfilePicture))" style="max-height:130px;width:130px;" />
+        }
+        else
+        {
+            <img id="profilePicture" alt="profile" src="/images/Avatar-PNG-Download-Image.png" style="max-height:130px;width:130px;" />
+        }
+    </div>
+    
+    @foreach (var pair in details)
+    {
+        <div class="my-2 d-flex flex-column">
+            <span class="fs-4">
+                @pair.Key
+            </span>
+            <span class="mx-1">
+                @pair.Value
+            </span>
+        </div>
+    }
+
+    <!-- Working Experience -->
+    <div class="my-2 d-flex flex-column">
+        <span class="fs-4">
+            Working Experience
+        </span>
+        <div class="d-flex flex-column border border-dark rounded">
+            @if (!Model.User.WorkingExperiences.Any())
+            {
+                <div class="p-3 border border-info rounded align-self-center">
+                    <span>
+                        No working experience.
+                    </span>
+                </div>
+            }
+            else
+            {
+                <div class="p-2 d-flex flex-column">
+                    @foreach (var workingExperience in Model.User.WorkingExperiences)
+                    {
+                        var workingExperienceDetails = new Dictionary<string, string>
+                        {
+                            ["Company"] = workingExperience.CompanyName,
+                            ["Job Title"] = workingExperience.JobTitle,
+                            ["Job Description"] = workingExperience.JobDescription,
+                            ["Job Field"] = workingExperience.JobField,
+                            ["Job Location"] = workingExperience.JobLocation,
+                            ["Duration"] = $"{workingExperience.StartDate:dd/MM/yyyy} - {workingExperience.EndDate:dd/MM/yyyy}"
+                        };
+
+                        @foreach (var (key, value) in workingExperienceDetails)
+                        {
+                            <div class="my-1 d-flex flex-column">
+                                <span class="fs-5">
+                                    @key
+                                </span>
+                                <span>
+                                    @value
+                                </span>
+                            </div>
+                        }
+                        
+                        <hr/>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Qualifications -->
+    <div class="my-2 d-flex flex-column">
+        <span class="fs-4">
+            Qualifications
+        </span>
+        <div class="d-flex flex-column border border-dark rounded">
+            @if (!Model.User.Qualifications.Any())
+            {
+                <div class="p-3 border border-info rounded align-self-center">
+                    <span>
+                        No qualifications.
+                    </span>
+                </div>
+            }
+            else
+            {
+                <div class="p-2 d-flex flex-column">
+                    @foreach (var qualification in Model.User.Qualifications)
+                    {
+                        var qualificationDetails = new Dictionary<string, string>
+                        {
+                            ["Institution"] = qualification.InstitutionName,
+                            ["Level of Education"] = qualification.LevelOfEducation,
+                            ["Major"] = qualification.Major,
+                            ["GPA"] = qualification.GPA?.ToString() ?? "-",
+                            ["Duration"] = $"{qualification.StartDate:dd/MM/yyyy} - {qualification.EndDate:dd/MM/yyyy}"
+                        };
+
+                        @foreach (var (key, value) in qualificationDetails)
+                        {
+                            <div class="my-1 d-flex flex-column">
+                                <span class="fs-5">
+                                    @key
+                                </span>
+                                <span>
+                                    @value
+                                </span>
+                            </div>
+                        }
+                        
+                        <hr/>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

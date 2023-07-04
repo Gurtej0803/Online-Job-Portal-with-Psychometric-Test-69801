@@ -1,0 +1,72 @@
+﻿@model IEnumerable<UserViewModel>
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h1>User Management</h1>
+
+<table class="table tableprogress-bar-striped mt-4">
+    <thead>
+        <tr class="bg-primary text-white">
+            <th>First Name</th>
+            <th>last name</th>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@string.Join(", ", user.Roles)</td>
+                <td>
+                    <a href ="javascript:;" class="btn btn-danger js-delete" data-id="@user.Id">Delete User</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            $('.js-delete').on('click', function(){
+                var btn = $(this);
+
+                bootbox.confirm({
+                    message: 'Are you sure that you need to delete this user?',
+                    buttons: {
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-danger'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-secondary'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result){
+                            $.ajax({
+                                url: '/api/user/?userId=' + btn.data('id'),
+                                method: 'DELETE',
+                                success: function(){
+                                    alert('User deleted');
+                                },
+                                error: function(){
+                                    alert('Something went wrong')
+                                }
+                            });
+                        }
+                    }
+                });      
+            });
+        });
+    </script>
+}

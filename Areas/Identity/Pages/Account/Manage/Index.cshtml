@@ -1,0 +1,156 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Username" class="form-label"></label>
+                <input asp-for="Username" class="form-control" disabled />
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Job Seeker") || User.IsInRole("Job Recruiter"))
+                {
+                    <div class="mb-3">
+                        <label asp-for="Input.PhoneNumber" class="form-label">Phone Number</label>
+                        <input asp-for="Input.PhoneNumber" class="form-control"/>
+                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                    </div>
+                }
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Job Seeker"))
+                {
+                    <div class="mb-3">
+                        <label asp-for="Input.FirstName" class="form-label">First Name</label>
+                        <input asp-for="Input.FirstName" class="form-control"/>
+                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                    </div>
+                }
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Job Seeker"))
+                {
+                    <div class="mb-3">
+                        <label asp-for="Input.LastName" class="form-label">Last Name</label>
+                        <input asp-for="Input.LastName" class="form-control"/>
+                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                    </div>
+                }
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Job Recruiter"))
+                {
+                    <div class="mb-3">
+                        <label asp-for="Input.CompanyName" class="form-label">Company Name</label>
+                        <input asp-for="Input.CompanyName" class="form-control" value="Company Name"/>
+                        <span asp-validation-for="Input.CompanyName" class="text-danger"></span>
+                    </div>
+                }
+            }
+             @if (User.Identity.IsAuthenticated)
+             {
+                 @if (User.IsInRole("Job Recruiter"))
+                 {
+                     <div class="mb-3">
+                         <label asp-for="Input.CompanyLocation" class="form-label">Location of Company</label>
+                         <input asp-for="Input.CompanyLocation" class="form-control"/>
+                         <span asp-validation-for="Input.CompanyLocation" class="text-danger"></span>
+                     </div>
+                 }
+             }
+             @if (User.Identity.IsAuthenticated)
+             {
+                 @if (User.IsInRole("Job Recruiter"))
+                 {
+                     {
+                         <div class="mb-3">
+                             <label asp-for="Input.CompanyType" class="form-label">Company Type</label>
+                             <select asp-for="Input.CompanyType" class="form-select" aria-label="Default select example">
+                                 <option selected>--Company Type--</option>
+                                 <option value="Small and Medium Enterprise">Small and Medium Enterprise</option>
+                                 <option value="Start up">Start up</option>
+                                 <option value="Multinational Company">Multinational Company</option>
+                                 <option value="Government Linked Company">Government Linked Company</option>
+                             </select>
+                             <span asp-validation-for="Input.CompanyType" class="text-danger"></span>
+                         </div>
+                     }
+                 }
+             }
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Job Recruiter"))
+                {
+                    <div class="mb-3">
+                        <label asp-for="Input.CompanyIndustry" class="form-label">Industry Company Is Involved In</label>
+                        <input asp-for="Input.CompanyIndustry" class="form-control"/>
+                        <span asp-validation-for="Input.CompanyIndustry" class="text-danger"></span>
+                    </div>
+                }
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Job Seeker"))
+                {
+                    <div class="mb-3">
+                        <label asp-for="Input.JobSeekerDateofBirth" class="form-label">Date of Birth</label>
+                        <input type="date" asp-for="Input.JobSeekerDateofBirth" class="form-control"/>
+                        <span asp-validation-for="Input.JobSeekerDateofBirth" class="text-danger"></span>
+                    </div>
+                }
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Job Seeker"))
+                {
+                    <div class="mb-3">
+                        <label asp-for="Input.JobSeekerGender" class="form-label">Gender</label>
+                        <select asp-for="Input.JobSeekerGender" class="form-select" aria-label="Default select example">
+                            <option selected>--Choose Gender--</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        <span asp-validation-for="Input.JobSeekerGender" class="text-danger"></span>
+                    </div>
+                }
+            }
+                     <div class="mb-3">
+                         <div class="form-group">
+                             <label asp-for="Input.ProfilePicture" class="w-">Profile Picture</label>
+                             @if(Model.Input.ProfilePicture.Length > 0)
+                            {
+                                <img id="profilePicture" alt="profile" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))" style="max-height:130px;width:130px;" />
+                            }
+                            else
+                            {
+                                <img id="profilePicture" alt="profile" src="/images/Avatar-PNG-Download-Image.png" style="max-height:130px;width:130px;" />
+                            }
+                        </div>
+                        
+                        <div class="input-group mb-3">
+                            <label class="form-group" asp-for="Input.ProfilePicture"  style="margin-right:20px">Change Profile Picture : </label>
+                            <input type="file" accept="image/*" asp-for="Input.ProfilePicture" class="form-control" onchange="document.getElementById('profilePicture').src=window.URL.createObjectURL(this.files[0])" />
+                            
+                        </div>
+                     </div>
+            
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

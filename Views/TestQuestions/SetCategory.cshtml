@@ -1,0 +1,11 @@
+﻿@model JobPortal.Models.Domain.SetCategoryViewModel
+@{
+}
+<h1> Add New Category</h1>
+<form method="post" action="SetCategory" class="mt-5">
+    <div class="mb-3">
+        <label for="" class="form-label">Category Name</label>
+        <input type="text" class="form-control" asp-for="CategoryName">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

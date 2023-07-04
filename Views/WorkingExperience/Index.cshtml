@@ -1,0 +1,38 @@
+@model List<JobPortal.Models.Domain.WorkingExperience>
+@{
+}
+<h1>WorkingExperience</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Company Name</th>
+            <th>Job Title</th>
+            <th>Job Description</th>
+            <th>Job Field</th>
+            <th>Job Location</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Job Seeker"))
+            {
+                <a href="/WorkingExperience/SetWorkingExperience" class="btn btn-primary btn-md justify-content-end">Add New Working Experience</a>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var workingExperience in Model)
+        {
+            <tr>
+                <td>@workingExperience.CompanyName</td>
+                <td>@workingExperience.JobTitle</td>
+                <td>@workingExperience.JobDescription</td>
+                <td>@workingExperience.JobField</td>
+                <td>@workingExperience.JobLocation</td>
+                <td>@workingExperience.StartDate</td>
+                <td>@workingExperience.EndDate</td>
+                <td><a href="WorkingExperience/ViewWorkingExperience/@workingExperience.Id" class="btn btn-primary">View</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+}

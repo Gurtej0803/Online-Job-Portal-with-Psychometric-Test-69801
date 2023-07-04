@@ -1,0 +1,22 @@
+﻿@model List<JobPortal.Models.Domain.CompanyProfile>
+@{
+}
+
+<h1>Company Profile</h1>
+<a href="/CompanyProfile/SetCompanyProfile" class="btn btn-primary btn-md justify-content-end">Edit</a>
+<body>
+    
+    @foreach (var companyProfile in Model)
+    {
+        <div>
+            <h4>Company Name: </h4>
+            <h4>Company Email: @companyProfile.CompanyEmail</h4>
+            <h4>Company Contact: @companyProfile.CompanyContact</h4>
+            <h4>Company Location: @companyProfile.CompanyLocation</h4>
+            <h4>Company Type: @companyProfile.CompanyType</h4>
+            <h4>Company Industry: @companyProfile.CompanyIndustry</h4>
+        </div>
+        
+    }
+    
+</body>

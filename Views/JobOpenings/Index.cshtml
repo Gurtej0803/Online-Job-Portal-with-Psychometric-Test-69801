@@ -1,0 +1,45 @@
+﻿@model List<JobPortal.Models.Domain.JobOpenings>
+@{
+}
+
+<h1>Job Openings</h1>
+
+@if (User.IsInRole("Job Recruiter"))
+{
+    <a href="/JobOpenings/SetJobOpening" class="btn btn-primary btn-md justify-content-end">Add New Job Opening</a>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Job Title</th>
+            <th>Job Description</th>
+            <th>Job Requirement</th>
+            <th>Location</th>
+            <th>Opening Type</th>
+            <th>Salary</th>
+            <th>Starting Date</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var jobOpenings in Model)
+        {
+         <tr>
+             <td>@jobOpenings.JobTitle</td>
+             <td>@jobOpenings.JobDescription</td>
+             <td>@jobOpenings.JobRequirement</td>
+             <td>@jobOpenings.JobOpeningLocation</td>
+             <td>@jobOpenings.JobOpeningType</td>
+             <td>@jobOpenings.OfferedSalary</td>
+             <td>@jobOpenings.PreferedStartingDate</td>
+             <td>@jobOpenings.JobOpeningStatus</td>
+             <td>
+                 <a class="btn btn-primary" asp-action="ViewJobOpening" asp-route-Id="@jobOpenings.JobId">Edit</a>
+                 <a class="btn btn-success" asp-action="ViewApplications" asp-route-id="@jobOpenings.JobId">View Applicants</a>
+             </td>
+         </tr>
+        }
+    </tbody>
+    </table>

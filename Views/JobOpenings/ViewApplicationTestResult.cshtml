@@ -1,0 +1,38 @@
+﻿@model ViewApplicationTestResultViewModel
+
+@{
+    ViewBag.Title = "View Job Application Test Result";
+}
+
+<div class="mb-4">
+    <a class="btn btn-primary" asp-action="ViewApplications" asp-route-id="@Model.JobId">Back</a>
+</div>
+
+<h2 class="text-center">Test Results for @Model.User.FirstName @Model.User.LastName</h2>
+
+<table class="table mt-5">
+    <thead>
+    <tr>
+        <th>Test Name</th>
+        <th>Score</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var (test, score) in Model.TestResults)
+    {
+        <tr>
+            <td>@test.CategoryName</td>
+            <td>
+                @if (score != null)
+                {
+                    <text>@($"{score:P1}")</text>
+                }
+                else
+                {
+                    <text> --- </text>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

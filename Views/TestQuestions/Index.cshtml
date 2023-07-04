@@ -1,0 +1,28 @@
+@model List<JobPortal.Models.Domain.TestQuestionCategory>
+@{
+}
+<h1>Category</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Category Name</th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Job Recruiter") || User.IsInRole("Admin"))
+                {
+                    <a href="/TestQuestions/SetCategory" class="btn btn-primary btn-md justify-content-end">Add New Category</a>
+                }
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var testQuestionCategory in Model)
+        {
+            <tr>
+                <td>@testQuestionCategory.CategoryName</td>
+                <td><a href="TestQuestions/ViewCategory/@testQuestionCategory.CategoryId" class="btn btn-primary">View</a></td>
+                
+            </tr>
+        }
+    </tbody>
+</table>

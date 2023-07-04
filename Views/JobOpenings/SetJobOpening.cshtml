@@ -1,0 +1,40 @@
+﻿@model JobPortal.Models.SetJobOpeningViewModel
+
+@{
+}
+<h1> Add New Job Opening</h1>
+<form method="post" action="SetJobOpening" class="mt-5">
+    <div class="mb-3">
+        <label for="" class="form-label">Job Title</label>
+        <input type="text" class="form-control" asp-for="JobTitle">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Job Description</label>
+        <input type="text" class="form-control" asp-for="JobDescription">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Job Requirement</label>
+        <input type="text" class="form-control" asp-for="JobRequirement">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Location of Job</label>
+        <input type="text" class="form-control" asp-for="JobOpeningLocation">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Type of Job</label>
+        <input type="text" class="form-control" asp-for="JobOpeningType">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Salary</label>
+        <input type="number" class="form-control" asp-for="OfferedSalary">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Prefered Starting Date</label>
+        <input type="date" class="form-control" asp-for="PreferedStartingDate">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Job Opening Status</label>
+        <input type="text" class="form-control" asp-for="JobOpeningStatus">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

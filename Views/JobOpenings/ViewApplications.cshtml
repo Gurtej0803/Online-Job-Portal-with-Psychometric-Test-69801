@@ -1,0 +1,65 @@
+﻿@model JobPortal.Models.Domain.JobOpenings
+
+@{
+    ViewBag.Title = "View Job Applications";
+}
+
+<div class="mb-4">
+    <a class="btn btn-primary" asp-action="Index">Back</a>
+</div>
+
+<h2 class="text-center">Job Applications for @Model.JobTitle</h2>
+
+<div class="mt-5 d-flex flex-column">
+    @if (!Model.JobApplications.Any())
+    {
+        <div class="p-3 border border-info rounded align-self-center">
+            <span>
+                There are currently no job applications for this job opening.
+            </span>
+        </div>
+    }
+    else
+    {
+        <div class="d-flex flex-column">
+            <!-- Header -->
+            <div class="row bg-light fw-bold">
+                <div class="col-4">
+                    Name
+                </div>
+                <div class="col">
+                    Application Date
+                </div>
+                <div class="col-4"></div>
+            </div>
+            
+            <!-- Body -->
+            @foreach (var application in Model.JobApplications)
+            {
+                <div class="row">
+                    <div class="col-4">
+                        @application.User.FirstName @application.User.LastName
+                    </div>
+                    <div class="col">
+                        <span>
+                            @application.CreatedDate.ToString("dd/MM/yyyy")
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <a class="btn btn-primary m-1" asp-action="ViewApplicationProfile" asp-route-jobId="@Model.JobId" asp-route-applicantId="@application.User.Id">View Profile</a>
+                        <a class="btn btn-primary m-1" asp-action="ViewApplicationTestResult" asp-route-jobId="@Model.JobId" asp-route-applicantId="@application.User.Id">Test Results</a>
+                        @if (application.Resume != null)
+                        {
+                            <a class="btn btn-primary m-1" target="_blank" asp-action="DownloadResume" asp-route-jobId="@Model.JobId" asp-route-applicantId="@application.User.Id">Download Resume</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-primary m-1 disabled">Download Resume</a>
+                        }
+                    </div>
+                </div>
+                <hr/>
+            }
+        </div>
+    }
+</div>

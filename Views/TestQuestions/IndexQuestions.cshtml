@@ -1,0 +1,42 @@
+﻿@model List<JobPortal.Models.Domain.TestQuestion>
+@{
+}
+<h1>Question</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Category Name</th>
+            <th>Question ID</th>
+            <th>Question Name</th>
+            <th>Option A</th>
+            <th>Option B</th>
+            <th>Option C</th>
+            <th>Option D</th>
+            <th>Correct Option</th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Job Recruiter") || User.IsInRole("Admin"))
+                {
+                    <a href="/TestQuestions/SetQuestions" class="btn btn-primary btn-md justify-content-end">Add New Question</a>
+                }
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var testQuestion in Model)
+        {
+            <tr>
+                <td>@testQuestion.TestQuestionCategory.CategoryName</td>
+                <td>@testQuestion.QuestionID</td>
+                <td>@testQuestion.QuestionName</td>
+                <td>@testQuestion.OptionA</td>
+                <td>@testQuestion.OptionB</td>
+                <td>@testQuestion.OptionC</td>
+                <td>@testQuestion.OptionD</td>
+                <td>@testQuestion.CorrectOption</td>
+                <td><a href="ViewQuestion/@testQuestion.QuestionID">View</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

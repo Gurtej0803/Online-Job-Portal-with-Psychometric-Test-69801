@@ -1,0 +1,66 @@
+@model TakeTestViewModel
+
+@{
+    ViewBag.Title = "Test";
+}
+
+<h2>@Model.Category.CategoryName</h2>
+
+<div class="mt-5 d-flex flex-column">
+    <form method="post" asp-action="SubmitTest">
+        <input type="hidden" name="TestId" value="@Model.Category.CategoryId"/>
+        @{ int index = 0; }
+        @foreach (var question in Model.Questions)
+        {
+            <div class="my-2 d-flex flex-column">
+                <span class="fs-5 align-self-center mb-2">
+                    @question.QuestionDescription
+                </span>
+                <span class="fs-2 fw-bold">
+                    @question.QuestionName
+                </span>
+
+                <div class="p-2 d-flex flex-column">
+                    <div class="form-check m-1">
+                        @{ var checkboxId = $"answer{index}A"; }
+                        <input class="form-check-input" id="@checkboxId" type="radio" required="required" name="Answers[@(index)]" value="A"/>
+                        <label class="form-check-label w-100" for="@checkboxId">
+                            @question.OptionA
+                        </label>
+                    </div>
+
+                    <div class="form-check m-1">
+                        @{ checkboxId = $"answer{index}B"; }
+                        <input class="form-check-input" id="@checkboxId" type="radio" required="required" name="Answers[@(index)]" value="B"/>
+                        <label class="form-check-label w-100" for="@checkboxId">
+                            @question.OptionB
+                        </label>
+                    </div>
+
+                    <div class="form-check m-1">
+                        @{ checkboxId = $"answer{index}C"; }
+                        <input class="form-check-input" id="@checkboxId" type="radio" required="required" name="Answers[@(index)]" value="C"/>
+                        <label class="form-check-label w-100" for="@checkboxId">
+                            @question.OptionC
+                        </label>
+                    </div>
+
+                    <div class="form-check m-1">
+                        @{ checkboxId = $"answer{index}D"; }
+                        <input class="form-check-input" id="@checkboxId" type="radio" required="required" name="Answers[@(index)]" value="D"/>
+                        <label class="form-check-label w-100" for="@checkboxId">
+                            @question.OptionD
+                        </label>
+                    </div>
+                </div>
+            </div>
+            index++;
+            
+            <hr/>
+        }
+        
+        <button type="submit" class="btn btn-primary">
+            Submit
+        </button>
+    </form>
+</div>

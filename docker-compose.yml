@@ -1,0 +1,26 @@
+﻿services:
+  jobportal:
+    image: jobportal
+    build:
+      context: .
+      dockerfile: Dockerfile
+  
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: jobportal_db
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    user: root
+    ports:
+      - "1433:1433"
+    volumes:
+      - jobportal-db:/var/opt/mssql/data
+    env_file:
+      - .env
+    environment:
+      TZ: Asia/Singapore
+      ACCEPT_EULA: Y
+
+volumes:
+  jobportal-db:

@@ -1,0 +1,66 @@
+﻿@model JobApplicationApplyViewModel
+
+@{
+    ViewBag.Title = "Job Application";
+}
+
+<h2>Job Application</h2>
+
+<div class="mt-5 d-flex flex-column">
+    <!-- Global tests -->
+    @if (Model.Questions.Any())
+    {
+        <div class="my-2 d-flex flex-column">
+            <h4>Tests required:</h4>
+            
+            @foreach (var (question, score) in Model.Questions)
+            {
+                <div class="w-100 p-2 d-flex">
+                    <!-- Test Name -->
+                    <div class="flex-grow-1 align-self-center">
+                        @question.CategoryName
+                    </div>
+                    
+                    <!-- Take test button -->
+                    <div class="">
+                        @if (score == null)
+                        {
+                            <a class="btn btn-primary" asp-controller="TakeTest" asp-action="Test" asp-route-id="@question.CategoryId" asp-route-job-id="@Model.JobId">
+                                Take test
+                            </a>
+                        }
+                        else
+                        {
+                            <span class="align-self-center">
+                                @($"{score:P1}")
+                            </span>
+                        }
+                    </div>
+                </div>
+                <hr/>
+            }
+        </div>
+    }
+
+    <form asp-action="ApplyJob" asp-route-id="@Model.JobId" enctype="multipart/form-data">
+        <div class="my-2 d-flex flex-column form-group">
+            <label class="fs-4 form-label" for="resumeInput">Upload Resume:</label>
+            <input id="resumeInput" type="file" accept="application/pdf" name="resume" class="form-control-file" />
+        </div>
+
+        <div class="my-2">
+            @if (Model.Questions.All(tuple => tuple.Item2 != null))
+            {
+                <button class="btn btn-primary" type="submit">
+                    Apply Now
+                </button>
+            }
+            else
+            {
+                <button class="btn btn-primary" type="submit" disabled>
+                    Apply Now
+                </button>
+            }
+        </div>
+    </form>
+</div>

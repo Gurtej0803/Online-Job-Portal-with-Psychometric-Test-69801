@@ -1,0 +1,36 @@
+﻿@model IEnumerable<(JobPortal.Models.Domain.TestQuestionCategory, double?)>
+
+<h2>Tests</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Test Name</th>
+        <th>Score</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var (test, score) in Model)
+    {
+        <tr>
+            <td class="align-middle">@test.CategoryName</td>
+            <td class="align-middle">
+                @if (score != null)
+                {
+                    <text>@($"{score:P1}")</text>
+                }
+                else
+                {
+                    <text> --- </text>
+                }
+            </td>
+            <td>
+                <a class="btn btn-primary" asp-action="Test" asp-route-id="@test.CategoryId">
+                    Take Test
+                </a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

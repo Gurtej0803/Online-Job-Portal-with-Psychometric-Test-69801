@@ -1,0 +1,38 @@
+@model JobApplicationIndexViewModel
+
+<h1>Job Application</h1>
+
+<partial name="_StatusMessage" model="@TempData["StatusMessage"]" />
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Job Title</th>
+        <th>Job Description</th>
+        <th>Job Requirement</th>
+        <th>Location</th>
+        <th>Opening Type</th>
+        <th>Salary</th>
+        <th>Starting Date</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var job in Model.Jobs)
+    {
+        <tr>
+            <td>@job.JobTitle</td>
+            <td>@job.JobDescription</td>
+            <td>@job.JobRequirement</td>
+            <td>@job.JobOpeningLocation</td>
+            <td>@job.JobOpeningType</td>
+            <td>@job.OfferedSalary</td>
+            <td>@job.PreferedStartingDate</td>
+            <td>@job.JobOpeningStatus</td>
+            <td>
+                <a asp-controller="JobApplication" asp-action="Details" asp-route-id="@job.JobId" class="btn btn-primary">Details</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

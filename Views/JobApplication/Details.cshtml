@@ -1,0 +1,47 @@
+﻿@model JobPortal.Models.Domain.JobOpenings
+
+@{
+    ViewBag.Title = Model.JobTitle;
+}
+
+<h2>Job Description</h2>
+
+<div class="mt-5 d-flex flex-column">
+    @{
+        var jobDetails = new Dictionary<string, string>
+        {
+            ["Company Name"] = Model.User.CompanyName,
+            ["Company Location"] = Model.User.CompanyLocation,
+            ["Company Type"] = Model.User.CompanyType,
+            ["Company Industry"] = Model.User.CompanyIndustry,
+            ["Job Title"] = Model.JobTitle,
+            ["Job Description"] = Model.JobDescription,
+            ["Job Requirement"] = Model.JobRequirement,
+            ["Location of Job"] = Model.JobOpeningLocation,
+            ["Type of Job"] = Model.JobOpeningType,
+            ["Salary"] = $"{Model.OfferedSalary:C0}",
+            ["Preferred Starting Date"] = Model.PreferedStartingDate.ToString("dd/MM/yyyy"),
+            ["Job Opening Status"] = Model.JobOpeningStatus,
+        };
+    }
+    
+    @foreach (var pair in jobDetails)
+    {
+        <div class="my-2 d-flex flex-column">
+            <span class="fs-4">
+                @pair.Key
+            </span>
+            <div class="border rounded px-2 py-3">
+                <span>
+                    @pair.Value
+                </span>
+            </div>
+        </div>
+    }
+    
+    <div class="my-2">
+        <a asp-action="Apply" asp-route-id="@Model.JobId" class="btn btn-primary">
+            Apply Now
+        </a>
+    </div>
+</div>

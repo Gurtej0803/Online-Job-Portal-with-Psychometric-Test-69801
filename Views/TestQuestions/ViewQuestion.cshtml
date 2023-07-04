@@ -1,0 +1,57 @@
+﻿@using JobPortal.Models.Domain
+@model JobPortal.Models.UpdateQuestionViewModel
+@{
+}
+
+<h1>Edit Question</h1>
+<form method="post" asp-action="ViewQuestion" class="mt-5">
+    <input type="hidden" asp-for="QuestionID" />
+    
+    <div class="mb-3">
+        <label class="form-label">Category Name</label>
+        <select asp-for="CategoryId" class="form-control">
+            @foreach (TestQuestionCategory item in ViewBag.TestQuestionCategory)
+            {
+                <option value="@item.CategoryId" selected="@(Model.CategoryId == item.CategoryId)">@item.CategoryName</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="QuestionDescription" class="form-label">Question Description</label>
+        <textarea id="." name="QuestionDescription" rows="4" cols="173" class="form-control">@Model.QuestionDescription</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Question Name</label>
+        <input type="text" class="form-control" asp-for="QuestionName">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Option A</label>
+        <input type="text" class="form-control" asp-for="OptionA">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Option B</label>
+        <input type="text" class="form-control" asp-for="OptionB">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Option C</label>
+        <input type="text" class="form-control" asp-for="OptionC">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Option D</label>
+        <input type="text" class="form-control" asp-for="OptionD">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Correct Option</label>
+        <select asp-for="CorrectOption" class="form-control">
+            <option value="A">Option A</option>
+            <option value="B">Option B</option>
+            <option value="C">Option C</option>
+            <option value="D">Option D</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <button type="submit" class="btn btn-danger"
+            asp-action="DeleteQuestion">Delete</button>
+</form>

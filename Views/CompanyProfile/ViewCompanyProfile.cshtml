@@ -1,0 +1,33 @@
+﻿@model JobPortal.Models.Domain.CompanyProfile
+@{
+}
+<h1>Edit Company Profile</h1>
+<form method="post" action="ViewCompanyProfile" class="mt-5">
+    <div class="mb-3">
+        <label for="" class="form-label">Company Name</label>
+        <input type="text" class="form-control" asp-for="CompanyName">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Company Email</label>
+        <input type="text" class="form-control" asp-for="CompanyEmail">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Company Contact</label>
+        <input type="text" class="form-control" asp-for="CompanyContact">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Company Location</label>
+        <input type="text" class="form-control" asp-for="CompanyLocation">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Company Type</label>
+        <input type="text" class="form-control" asp-for="CompanyType">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Company Industry</label>
+        <input type="text" class="form-control" asp-for="CompanyIndustry">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+  
+</form>
